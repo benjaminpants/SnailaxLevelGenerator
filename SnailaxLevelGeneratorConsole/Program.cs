@@ -2,8 +2,9 @@
 using System.IO;
 using System.Collections.Generic;
 using SnailaxDOTNET;
+using SnailaxLevelGenerator;
 
-namespace SnailaxLevelGenerator
+namespace SnailaxLevelGeneratorConsole
 {
 	class Program
 	{
@@ -48,16 +49,16 @@ namespace SnailaxLevelGenerator
 			}
 			Console.WriteLine("Attempting to perform sanity check... (this is broken right now)");
 			new SanityChecker().GenerateTiles(sn, rng);
-			sn.SquidProperties.GroundSpikeProbability = rng.Next(0,8);
+			sn.SquidProperties.GroundSpikeProbability = rng.Next(0, 8);
 			sn.SquidProperties.WallSpikeProbablity = rng.Next(0, 8);
 			sn.SquidProperties.CeilingSpikeProbability = rng.Next(0, 8);
 			sn.SquidProperties.ConveyerBeltChangeProbability = rng.Next(1, 4);
 			sn.SquidProperties.IceSpikeFallProbability = rng.Next(1, 12);
-			if (rng.Next(0,100) <= 22)
+			if (rng.Next(0, 100) <= 22)
 			{
 				sn.SquidProperties.AirSpikeProbability = rng.Next(0, 6);
 			}
-			Console.WriteLine("Done!\n File outputed to:\n" + Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"output.wysld"));
+			Console.WriteLine("Done!\n File outputed to:\n" + Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output.wysld"));
 			File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output.wysld"), sn.Serialize());
 		}
 	}
