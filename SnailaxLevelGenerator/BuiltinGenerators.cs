@@ -113,7 +113,7 @@ namespace SnailaxLevelGenerator
 
 				if (maxtop_pos < maxbot_pos)
 					off = rng.Next(maxtop_pos, maxbot_pos);
-                else
+                		else
 					 off = rng.Next(maxbot_pos, maxtop_pos);
 
 				level.PlaceTileAtGridPosition(position_chosen[0], off, "obj_wall");
