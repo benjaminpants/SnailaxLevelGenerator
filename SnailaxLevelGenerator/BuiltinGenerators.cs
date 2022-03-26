@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using SnailaxDOTNET;
@@ -98,7 +98,7 @@ namespace SnailaxLevelGenerator
 
 			bool has_guns = false;
 
-			List<int[]> possibletiles = GetEmptyGridPositions(level);
+			List<int[]> possibletiles = GetEmptyGridPositions(level, true);
 
 			int floating_platforms = rng.Next(0, (int)(2 * level.RoomMultiplierX));
 
@@ -109,8 +109,12 @@ namespace SnailaxLevelGenerator
 
 				int maxtop_pos = MoveUntilCollision(level, possibletiles[chosen_index], 0, -1)[1];
 				int maxbot_pos = MoveUntilCollision(level, possibletiles[chosen_index], 0, 1)[1];
+				int off;
 
-				int off = rng.Next(maxtop_pos, maxbot_pos);
+				if (maxtop_pos < maxbot_pos)
+					off = rng.Next(maxtop_pos, maxbot_pos);
+                else
+					 off = rng.Next(maxbot_pos, maxtop_pos);
 
 				level.PlaceTileAtGridPosition(position_chosen[0], off, "obj_wall");
 
@@ -248,7 +252,13 @@ namespace SnailaxLevelGenerator
 
 				int maxtop_pos = MoveUntilCollision(level, possibletiles[chosen_index], 0, -1)[1];
 				int maxbot_pos = MoveUntilCollision(level, possibletiles[chosen_index], 0, 1)[1];
-				Tile til = level.PlaceTileAtGridPosition(position_chosen[0], rng.Next(maxtop_pos, maxbot_pos), "obj_squasher");
+
+				Tile til;
+
+				if (maxtop_pos < maxbot_pos)
+					til = level.PlaceTileAtGridPosition(position_chosen[0], rng.Next(maxtop_pos, maxbot_pos), "obj_squasher");
+				else
+					til = level.PlaceTileAtGridPosition(position_chosen[0], rng.Next(maxbot_pos, maxtop_pos), "obj_squasher");
 
 				til.rotation = rng.Next(0,3) * 90;
 
