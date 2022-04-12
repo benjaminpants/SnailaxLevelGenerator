@@ -48,12 +48,12 @@ namespace SnailaxLevelGeneratorConsole
 				if (Console.ReadKey().Key == ConsoleKey.Y)
 				{
 					Console.WriteLine("\nDecorating...!");
-					new TrialDecorator().GenerateTiles(sn, rng);
+					new TrialDecorator().GenerateTiles(sn, rng, true);
 				}
 				else
                 {
 					Console.WriteLine("\nDecorating...!");
-					new TrialDecorator().GenerateTiles(sn, rng);
+					new TrialDecorator().GenerateTiles(sn, rng, false);
 				}
 			}
 			Console.WriteLine("Attempting to perform sanity check... (this is broken right now)");
