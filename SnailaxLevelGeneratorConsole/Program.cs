@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Collections.Generic;
 using SnailaxDOTNET;
@@ -6,11 +6,11 @@ using SnailaxLevelGenerator;
 
 namespace SnailaxLevelGeneratorConsole
 {
-	class Program
+	public class Program
 	{
 		public static List<Generator> GeneralGenerators = new List<Generator>() { new BlockedTerrain(), new GiantBox() };
 
-		static void Main(string[] args)
+		public static void Main(string[] args)
 		{
 			SnailaxLevel sn = new SnailaxLevel("testlevel");
 
@@ -23,7 +23,7 @@ namespace SnailaxLevelGeneratorConsole
 			Console.WriteLine("Do you wish to enter a seed? A random one will be used by default(y/n)");
 			if (Console.ReadKey().Key == ConsoleKey.Y)
 			{
-				Console.WriteLine("Please enter seed:");
+				Console.WriteLine("\nPlease enter seed:");
 				seed = int.Parse(Console.ReadLine());
 			}
 			Console.WriteLine("Choose a terrain generator:\n0 = Blocked Terrain(Recommended)\n1 = Superflat");
@@ -44,8 +44,17 @@ namespace SnailaxLevelGeneratorConsole
 			int option = int.Parse(Console.ReadLine());
 			if (option != -1)
 			{
-				Console.WriteLine("Decorating...!");
-				new TrialDecorator().GenerateTiles(sn, rng);
+				Console.WriteLine("Use multithreading?(y/n)");
+				if (Console.ReadKey().Key == ConsoleKey.Y)
+				{
+					Console.WriteLine("\nDecorating...!");
+					new TrialDecorator().GenerateTiles(sn, rng, true);
+				}
+				else
+                {
+					Console.WriteLine("\nDecorating...!");
+					new TrialDecorator().GenerateTiles(sn, rng, false);
+				}
 			}
 			Console.WriteLine("Attempting to perform sanity check... (this is broken right now)");
 			new SanityChecker().GenerateTiles(sn, rng);

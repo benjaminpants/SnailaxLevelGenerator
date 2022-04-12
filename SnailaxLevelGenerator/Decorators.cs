@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using SnailaxDOTNET;
@@ -41,22 +41,29 @@ namespace SnailaxLevelGenerator
 			}
 		}
 
-		public static List<int[]> GetEmptyGridPositions(SnailaxLevel lvl)
+		public static List<int[]> GetEmptyGridPositions(SnailaxLevel lvl, bool mt = true)
 		{
-			List<int[]> Positions = new List<int[]>();
-			int max_room_x = (int)Math.Ceiling(lvl.RoomSizeX / 60f) - 1;
-			int max_room_y = (int)Math.Ceiling(lvl.RoomSizeY / 60f) - 1;
-			for (int i = 0; i < max_room_x; i++)
+			if (mt == false)
 			{
-				for (int j = 0; j < max_room_y; j++)
+				List<int[]> Positions = new List<int[]>();
+				int max_room_x = (int)Math.Ceiling(lvl.RoomSizeX / 60f) - 1;
+				int max_room_y = (int)Math.Ceiling(lvl.RoomSizeY / 60f) - 1;
+				for (int i = 0; i < max_room_x; i++)
 				{
-					if (lvl.GetTileAtGridPosition(i,j) == null)
+					for (int j = 0; j < max_room_y; j++)
 					{
-						Positions.Add(new int[] { i, j });
+						if (lvl.GetTileAtGridPosition(i, j) == null)
+						{
+							Positions.Add(new int[] { i, j });
+						}
 					}
 				}
-			}
-			return Positions;
+				return Positions;
+			} else
+            {
+				return Multithreading.findEmptySpacesMultiTreaded(lvl);
+            }
+			
 		}
 
 		public static int[] MoveUntilCollision(SnailaxLevel lvl, int[] int_to_change, int movex, int movey, string filter = "")
