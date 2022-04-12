@@ -93,12 +93,12 @@ namespace SnailaxLevelGenerator
 
 		}
 
-		public override bool GenerateTiles(SnailaxLevel level, Random rng)
+		public override bool GenerateTiles(SnailaxLevel level, Random rng, bool mt)
 		{
 
 			bool has_guns = false;
 
-			List<int[]> possibletiles = GetEmptyGridPositions(level, true);
+			List<int[]> possibletiles = GetEmptyGridPositions(level, mt);
 
 			int floating_platforms = rng.Next(0, (int)(2 * level.RoomMultiplierX));
 
